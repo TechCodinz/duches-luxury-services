@@ -1,0 +1,1 @@
+import{NextResponse}from"next/server";import{getBankAccounts}from"../../../../lib/payments";export async function GET(){const accounts=(await getBankAccounts()).filter(x=>x.enabled).map(({id,bankName,accountName,accountNumber,currency,instructions})=>({id,bankName,accountName,accountNumber,currency,instructions}));return NextResponse.json({ok:true,accounts})}
