@@ -1,0 +1,4 @@
+import { NextResponse } from "next/server";
+import { isDatabaseConfigured,db } from "../../../../lib/db";
+import { clientBookings,clientInvoices,conciergeRequests,savedResidences } from "../../../../lib/client-portal";
+export async function GET(){if(!isDatabaseConfigured())return NextResponse.json({ok:true,mode:"demo",bookings:clientBookings,invoices:clientInvoices,concierge:conciergeRequests,saved:savedResidences});const sql=db();const bookings=await sql`select b.id,b.status,b.start_date,b.end_date,b.approved_amount,b.currency,l.title,l.location from bookings b left join listings l on l.id=b.listing_id order by b.start_date desc limit 20`;const invoices=await sql`select reference,status,currency,amount,due_at,paid_at from invoices order by created_at desc limit 20`;return NextResponse.json({ok:true,mode:"live",bookings,invoices});}
