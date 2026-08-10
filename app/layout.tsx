@@ -5,9 +5,9 @@ import "./platform.css";
 import "./business.css";
 import "./cms.css";
 import "./payment.css";
-import "./live-concierge.css";
+import "./booking.css";
 import { StructuredData } from "../components/StructuredData";
-import { LiveConcierge } from "../components/LiveConcierge";
+import LiveConcierge from "../components/LiveConcierge";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://duches.example.com"),
@@ -18,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><StructuredData />{children}<LiveConcierge /></body></html>;
+  return <html lang="en"><body><StructuredData />{children}<LiveConcierge/></body></html>;
 }
