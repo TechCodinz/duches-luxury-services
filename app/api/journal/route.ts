@@ -1,0 +1,1 @@
+import{NextRequest,NextResponse}from"next/server";export async function POST(r:NextRequest){const b=await r.json().catch(()=>null);if(!b?.title||!b?.body)return NextResponse.json({ok:false,error:"title and body are required"},{status:400});return NextResponse.json({ok:true,article:{id:`DJ-${Date.now().toString().slice(-4)}`,status:"draft",...b}},{status:201})}

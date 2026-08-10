@@ -1,0 +1,1 @@
+import{NextRequest,NextResponse}from"next/server";export async function POST(r:NextRequest){const b=await r.json().catch(()=>null);if(!b?.name||!b?.rating||!b?.copy)return NextResponse.json({ok:false,error:"name, rating and copy are required"},{status:400});return NextResponse.json({ok:true,review:{id:`RV-${Date.now().toString().slice(-4)}`,status:"pending",...b}},{status:201})}
