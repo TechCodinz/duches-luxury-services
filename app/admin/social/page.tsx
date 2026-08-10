@@ -1,3 +1,4 @@
+import "./social.css";
 import {
   Bot,
   CalendarClock,
