@@ -1,0 +1,2 @@
+import type{MetadataRoute}from"next";import{properties}from"../lib/properties";
+export default function sitemap():MetadataRoute.Sitemap{const base=process.env.NEXT_PUBLIC_SITE_URL||"https://duchesluxury.com";const staticRoutes=["","/properties","/concierge","/book","/client"];return [...staticRoutes.map(route=>({url:`${base}${route}`,lastModified:new Date(),changeFrequency:route===""?"daily":"weekly" as const,priority:route===""?1:.8})),...properties.map(p=>({url:`${base}/properties/${p.slug}`,lastModified:new Date(),changeFrequency:"weekly" as const,priority:.8}))]}
