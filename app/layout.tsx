@@ -3,6 +3,7 @@ import "./globals.css";
 import "./experience.css";
 import "./cms.css";
 import "./business.css";
+import "./platform.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://duchesluxury.com"),
