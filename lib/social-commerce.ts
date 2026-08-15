@@ -1,6 +1,7 @@
 export type SocialChannel = "whatsapp" | "instagram" | "facebook" | "telegram" | "web" | "phone";
 
 export type ChannelStatus = "connected" | "pending" | "disconnected";
+export type SocialChannelConfig = { id: SocialChannel; name: string; purpose: string; status: ChannelStatus; supportsPublishing: boolean };
 
 export type ConversationIntent =
   | "property_inquiry"
@@ -33,12 +34,12 @@ export type SocialPost = {
   status: "draft" | "scheduled" | "published";
 };
 
-export const socialChannels = [
-  { id: "whatsapp", name: "WhatsApp Business", purpose: "Leads, bookings, payment links and concierge support", status: "pending" as ChannelStatus },
-  { id: "instagram", name: "Instagram", purpose: "DM inquiries, property discovery and social publishing", status: "pending" as ChannelStatus },
-  { id: "facebook", name: "Facebook", purpose: "Messenger inquiries, page publishing and campaigns", status: "pending" as ChannelStatus },
-  { id: "telegram", name: "Telegram", purpose: "Bot storefront, Mini App, invoices and support", status: "pending" as ChannelStatus },
-  { id: "phone", name: "AI Call Assistant", purpose: "Inbound qualification, booking and human handoff", status: "pending" as ChannelStatus },
+export const socialChannels: SocialChannelConfig[] = [
+  { id: "whatsapp", name: "WhatsApp Business", purpose: "Leads, bookings, payment links and concierge support", status: "pending", supportsPublishing: false },
+  { id: "instagram", name: "Instagram", purpose: "DM inquiries, property discovery and social publishing", status: "pending", supportsPublishing: true },
+  { id: "facebook", name: "Facebook", purpose: "Messenger inquiries, page publishing and campaigns", status: "pending", supportsPublishing: true },
+  { id: "telegram", name: "Telegram", purpose: "Bot storefront, Mini App, invoices and support", status: "pending", supportsPublishing: true },
+  { id: "phone", name: "AI Call Assistant", purpose: "Inbound qualification, booking and human handoff", status: "pending", supportsPublishing: false },
 ];
 
 export const demoConversations: SocialConversation[] = [

@@ -47,7 +47,7 @@ export function SiteFooter() {
         <div><h4>Private client</h4><Link href="/book">Book consultation</Link><Link href="/client">Client portal</Link><Link href="/admin">Duches admin</Link><a href="mailto:hello@duchesluxury.com">Email us</a></div>
         <div><p className="eyebrow">Begin privately</p><h3>Tell us what you need. We’ll curate the rest.</h3><Link className="gold-button" href="/book">Start a request <ArrowRight size={14}/></Link></div>
       </div>
-      <div className="lux-footer-bottom"><span>© 2026 Duches Luxury Services</span><span>Privacy · Terms · Discretion</span></div>
+      <div className="lux-footer-bottom"><span>© 2026 Duches Luxury Services</span><span><Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link> · Discretion</span></div>
     </footer>
   );
 }

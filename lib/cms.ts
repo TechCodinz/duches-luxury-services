@@ -1,3 +1,5 @@
+import { properties } from "./properties";
+
 export type MediaKind = "image" | "video" | "audio";
 export type ListingStatus = "draft" | "published" | "archived";
 export type ListingType = "shortlet" | "property" | "hotel" | "experience";
@@ -39,7 +41,29 @@ export const demoAssets: MediaAsset[] = [
 ];
 
 export const managedListings: ManagedListing[] = [
-  { id:"p1", slug:"the-crown-penthouse", title:"The Crown Penthouse", type:"property", status:"published", location:"Victoria Island, Lagos", priceLabel:"$2,500,000", bedrooms:4, bathrooms:5, guests:8, featured:true, summary:"A skyline residence designed for private entertaining and effortless city living.", amenities:["Private lift","Pool","24/7 concierge","Smart home"], media:[demoAssets[0]], updatedAt:"12 mins ago" },
-  { id:"s1", slug:"oceanview-residence", title:"Oceanview Residence", type:"shortlet", status:"published", location:"Lekki, Lagos", priceLabel:"$15,000 / month", bedrooms:3, bathrooms:3, guests:6, featured:true, summary:"A bright waterfront shortlet with hotel-level support and curated guest services.", amenities:["Ocean view","Housekeeping","Driver on request","High-speed Wi-Fi"], media:[demoAssets[1]], updatedAt:"1 hour ago" },
-  { id:"e1", slug:"grand-duchess-experience", title:"Grand Duchess Experience", type:"experience", status:"draft", location:"Lagos", priceLabel:"From $12,800", guests:10, featured:false, summary:"Villa, yacht, chef, glam team and private content production in one signature experience.", amenities:["Private yacht","Chef & butler","Glam team","Private photoshoot"], media:[demoAssets[3]], updatedAt:"Yesterday" },
+  ...properties.map((property, index): ManagedListing => ({
+    id: `showcase-${index + 1}`,
+    slug: property.slug,
+    title: property.name,
+    type: property.status === "For Rent" ? "shortlet" : "property",
+    status: "published",
+    location: property.location,
+    priceLabel: property.price,
+    bedrooms: property.bedrooms,
+    bathrooms: property.bathrooms,
+    guests: property.guests ?? property.bedrooms * 2,
+    featured: index < 4,
+    summary: property.summary,
+    amenities: property.features,
+    media: [{
+      id: `showcase-media-${index + 1}`,
+      name: `${property.slug}-hero.jpg`,
+      kind: "image",
+      url: property.hero,
+      alt: property.name,
+      createdAt: "Showcase collection",
+    }],
+    updatedAt: "Owner review",
+  })),
+  { id:"e1", slug:"grand-duchess-experience", title:"Grand Duchess Experience", type:"experience", status:"draft", location:"Lagos", priceLabel:"Price on request", guests:10, featured:false, summary:"Villa, yacht, chef, glam team and private content production in one signature experience.", amenities:["Private yacht","Chef & butler","Glam team","Private photoshoot"], media:[demoAssets[3]], updatedAt:"Owner review" },
 ];

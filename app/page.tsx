@@ -27,7 +27,10 @@ import {
   Users,
   X,
 } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import { properties as propertyCollection } from "../lib/properties";
 
 const heroSlides = [
   {
@@ -48,13 +51,6 @@ const heroSlides = [
     title: "Luxury, Personally Delivered",
     copy: "From airport pickup to a private chef, every detail can be arranged around your stay and your lifestyle.",
   },
-];
-
-const properties = [
-  { name: "The Crown Penthouse", location: "Victoria Island, Lagos", price: "$2,500,000", status: "For Sale", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85" },
-  { name: "Oceanview Residence", location: "Lekki, Lagos", price: "$15,000 /month", status: "For Rent", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=85" },
-  { name: "Skyline Towers", location: "Downtown, Dubai", price: "$1,750,000", status: "For Sale", image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=900&q=85" },
-  { name: "Hillside Mansion", location: "Maitama, Abuja", price: "$20,000 /month", status: "For Rent", image: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?auto=format&fit=crop&w=900&q=85" },
 ];
 
 const packages = [
@@ -104,7 +100,7 @@ export default function Home() {
           <p className="eyebrow">{current.eyebrow}</p>
           <h1>{current.title.split(" ").slice(0, -1).join(" ")} <em>{current.title.split(" ").at(-1)}</em></h1>
           <p className="hero-copy">{current.copy}</p>
-          <div className="hero-actions"><a className="gold-button" href="#properties">Explore properties <ArrowRight size={15} /></a><button className="ghost-button"><span className="play"><Play size={11} fill="currentColor" /></span> Watch film</button></div>
+          <div className="hero-actions"><Link className="gold-button" href="/properties">Explore properties <ArrowRight size={15} /></Link><Link className="ghost-button" href="/concierge"><span className="play"><Play size={11} fill="currentColor" /></span> Plan my experience</Link></div>
         </div>
         <div className="slide-count"><span>0{slide + 1}</span><div className="slide-line"><i style={{ width: `${((slide + 1) / heroSlides.length) * 100}%` }} /></div><span>0{heroSlides.length}</span></div>
       </section>
@@ -115,7 +111,7 @@ export default function Home() {
           <SearchField icon={<Building2 size={17} />} label="Property Type" options={["All Types", "Penthouse", "Villa", "Mansion", "Apartment"]} />
           <SearchField icon={<CircleDollarSign size={17} />} label="Price Range" options={["Any Budget", "Under $500K", "$500K – $1M", "$1M – $5M", "$5M+"]} />
           <SearchField icon={<BedDouble size={17} />} label="Bedrooms" options={["Any", "1+", "2+", "3+", "4+", "5+"]} />
-          <button className="search-button"><Search size={16} /> Search</button>
+          <Link className="search-button" href="/properties"><Search size={16} /> Browse collection</Link>
         </div>
       </section>
 
@@ -127,19 +123,20 @@ export default function Home() {
       </section>
 
       <section className="section light" id="properties">
-        <div className="section-head"><div><p className="eyebrow dark-eye">Handpicked Selection</p><h2>Featured Properties</h2></div><a href="#properties" className="text-link">View all properties <ArrowRight size={14} /></a></div>
+        <div className="section-head"><div><p className="eyebrow dark-eye">Handpicked Selection</p><h2>Featured Properties</h2></div><Link href="/properties" className="text-link">View all properties <ArrowRight size={14} /></Link></div>
         <div className="property-grid">
-          {properties.map((p, i) => (
+          {propertyCollection.slice(0, 4).map((p, i) => (
             <article className="property-card" key={p.name}>
-              <div className="property-image"><img src={p.image} alt={p.name} /><span className={`status ${p.status === "For Rent" ? "dark-status" : ""}`}>{p.status}</span><button className={`heart ${favorites.includes(i) ? "active" : ""}`} onClick={() => setFavorites((f) => f.includes(i) ? f.filter(x => x !== i) : [...f, i])} aria-label="Save property"><Heart size={17} fill={favorites.includes(i) ? "currentColor" : "none"} /></button></div>
-              <div className="property-meta"><div><h3>{p.name}</h3><p><MapPin size={12} /> {p.location}</p></div><strong>{p.price}</strong></div>
+              <div className="property-image"><Link href={`/properties/${p.slug}`} aria-label={`View ${p.name}`}><Image src={p.hero} alt={p.name} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw" /></Link><span className={`status ${p.status === "For Rent" ? "dark-status" : ""}`}>{p.status}</span><button className={`heart ${favorites.includes(i) ? "active" : ""}`} onClick={() => setFavorites((f) => f.includes(i) ? f.filter(x => x !== i) : [...f, i])} aria-label={favorites.includes(i) ? `Remove ${p.name} from saved properties` : `Save ${p.name}`}><Heart size={17} fill={favorites.includes(i) ? "currentColor" : "none"} /></button></div>
+              <div className="property-meta"><div><h3><Link href={`/properties/${p.slug}`}>{p.name}</Link></h3><p><MapPin size={12} /> {p.location}</p></div><strong>{p.price}</strong></div>
             </article>
           ))}
         </div>
+        <p className="featured-note">Showcase collection for owner review. Availability and pricing are confirmed privately before any offer or payment request.</p>
       </section>
 
       <section className="stats">
-        <Stat icon={<House />} value="500+" label="Properties" /><Stat icon={<Users />} value="2,000+" label="Clients Served" /><Stat icon={<Globe2 />} value="15+" label="Global Cities" /><Stat icon={<Star />} value="5.0" label="Client Rating" />
+        <Stat icon={<House />} value="Private" label="Residence sourcing" /><Stat icon={<Users />} value="1:1" label="Client attention" /><Stat icon={<Globe2 />} value="Global" label="Partner reach" /><Stat icon={<Star />} value="5" label="Signature packages" />
       </section>
 
       <section className="section packages" id="packages">
@@ -172,11 +169,11 @@ export default function Home() {
         <p className="eyebrow dark-eye">Client Voices</p><h2>Service remembered long after the stay.</h2><blockquote>“Duches made every part of the experience feel effortless. The property was exceptional, but the attention to detail is what made us return.”</blockquote><div className="client"><div className="avatar">AO</div><div><strong>Amaka O.</strong><span>Lagos, Nigeria</span></div></div>
       </section>
 
-      <section className="contact-cta" id="contact"><div><p className="eyebrow">Private Client Services</p><h2>Tell us what exceptional looks like to you.</h2></div><div className="cta-actions"><a className="gold-button" href="mailto:hello@duchesluxury.com">Start a conversation <ArrowRight size={15} /></a><a className="ghost-button boxed" href="#home"><Phone size={15} /> Book a call</a></div></section>
+      <section className="contact-cta" id="contact"><div><p className="eyebrow">Private Client Services</p><h2>Tell us what exceptional looks like to you.</h2></div><div className="cta-actions"><Link className="gold-button" href="/book">Start a private request <ArrowRight size={15} /></Link><a className="ghost-button boxed" href="mailto:hello@duchesluxury.com"><Phone size={15} /> Email Duches</a></div></section>
 
-      <footer><div className="footer-grid"><div className="footer-brand"><a className="brand" href="#home"><span className="brand-mark"><Crown size={20} /></span><span><strong>DUCHES</strong><small>LUXURY SERVICES</small></span></a><p>Luxury is not a price point. It is a level of service.</p><span className="script">Duches</span></div><div><h4>Explore</h4><a href="#properties">Properties</a><a href="#hospitality">Hospitality</a><a href="#services">Concierge</a><a href="#packages">Packages</a></div><div><h4>Company</h4><a href="#about">About</a><a href="#journal">Journal</a><a href="#contact">Contact</a><a href="#">Privacy</a></div><div><h4>Private updates</h4><p>Receive selected properties, destination notes and private offers.</p><div className="subscribe"><input aria-label="Email address" placeholder="Email address" type="email"/><button aria-label="Subscribe"><ArrowRight size={17}/></button></div></div></div><div className="footer-bottom"><span>© 2026 Duches Luxury Services.</span><span>Real estate • Hospitality • Concierge</span></div></footer>
+      <footer><div className="footer-grid"><div className="footer-brand"><a className="brand" href="#home"><span className="brand-mark"><Crown size={20} /></span><span><strong>DUCHES</strong><small>LUXURY SERVICES</small></span></a><p>Luxury is not a price point. It is a level of service.</p><span className="script">Duches</span></div><div><h4>Explore</h4><Link href="/properties">Properties</Link><a href="#hospitality">Hospitality</a><Link href="/concierge">Concierge</Link><a href="#packages">Packages</a></div><div><h4>Company</h4><a href="#about">About</a><a href="#journal">Journal</a><Link href="/book">Contact</Link><Link href="/privacy">Privacy</Link></div><div><h4>Private updates</h4><p>Receive selected properties, destination notes and private offers.</p><Link className="outline-gold compact" href="/book">Request private updates</Link></div></div><div className="footer-bottom"><span>© 2026 Duches Luxury Services.</span><span>Real estate • Hospitality • Concierge</span></div></footer>
 
-      <div className="floating"><a href="#contact"><MessageCircle size={18} /><span>WhatsApp</span></a><a href="#contact"><Phone size={18} /><span>Book a call</span></a></div>
+      <div className="floating"><Link href="/concierge"><MessageCircle size={18} /><span>Concierge</span></Link><Link href="/book"><Phone size={18} /><span>Book a call</span></Link></div>
       <button className="to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><ChevronUp size={18} /></button>
     </main>
   );
@@ -186,5 +183,5 @@ function SearchField({ icon, label, options }: { icon: React.ReactNode; label: s
 function Service({ icon, title, copy }: { icon: React.ReactNode; title: string; copy: string }) { return <div className="service-item"><span>{icon}</span><div><strong>{title}</strong><p>{copy}</p></div></div>; }
 function Stat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) { return <div className="stat"><span>{icon}</span><strong>{value}</strong><small>{label}</small></div>; }
 function Promise({ icon, title, copy }: { icon: React.ReactNode; title: string; copy: string }) { return <article className="promise-card"><span>{icon}</span><h3>{title}</h3><p>{copy}</p></article>; }
-function Experience({ image, title, copy }: { image: string; title: string; copy: string }) { return <article className="experience"><img src={image} alt={title}/><div><h3>{title}</h3><p>{copy}</p><ArrowRight size={18}/></div></article>; }
-function Journal({ image, tag, title }: { image: string; tag: string; title: string }) { return <article className="journal-card"><img src={image} alt=""/><p>{tag}</p><h3>{title}</h3><a href="#journal">Read story <ArrowRight size={13}/></a></article>; }
+function Experience({ image, title, copy }: { image: string; title: string; copy: string }) { return <article className="experience"><Image src={image} alt={title} fill sizes="(max-width: 700px) 100vw, 33vw"/><div><h3>{title}</h3><p>{copy}</p><ArrowRight size={18}/></div></article>; }
+function Journal({ image, tag, title }: { image: string; tag: string; title: string }) { return <article className="journal-card"><Image src={image} alt="" width={1000} height={700} sizes="(max-width: 700px) 100vw, 33vw"/><p>{tag}</p><h3>{title}</h3><a href="#journal">Read story <ArrowRight size={13}/></a></article>; }
