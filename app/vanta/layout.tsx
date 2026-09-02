@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
 import "./vanta.css";
 import "./premium.css";
+import "./expansion.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Fitness Option — Performance Engineered" },
-  description: "Fitness Option digital fitness club experience: intelligent training, coaching, memberships and performance tracking.",
+  description: "Fitness Option digital fitness club experience: intelligent training, live coaching, daily plans, guided workouts, memberships and performance tracking.",
   applicationName: "Fitness Option",
   robots: { index: false, follow: false },
   openGraph: {
     title: "Fitness Option — Performance Engineered",
-    description: "Fitness Option performance training, intelligent coaching and a connected member operating system.",
+    description: "Fitness Option live training, guided performance, intelligent coaching and a connected member operating system.",
     type: "website",
     siteName: "Fitness Option",
   },
   twitter: {
     card: "summary_large_image",
     title: "Fitness Option — Performance Engineered",
-    description: "Fitness Option performance training, intelligent coaching and a connected member operating system.",
+    description: "Fitness Option live training, guided performance, intelligent coaching and a connected member operating system.",
   },
   appleWebApp: {
     capable: true,
