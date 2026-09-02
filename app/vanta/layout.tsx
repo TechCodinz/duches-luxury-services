@@ -2,24 +2,24 @@ import type { Metadata } from "next";
 import "./vanta.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "VANTA Athletic Club — Performance Engineered" },
-  description: "A premium digital fitness club demo: intelligent training, coaching, memberships and performance tracking.",
-  applicationName: "VANTA Athletic Club",
+  title: { absolute: "Fitness Option — Performance Engineered" },
+  description: "Fitness Option digital fitness club experience: intelligent training, coaching, memberships and performance tracking.",
+  applicationName: "Fitness Option",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "VANTA Athletic Club — Performance Engineered",
-    description: "Performance training, intelligent coaching and a connected member operating system.",
+    title: "Fitness Option — Performance Engineered",
+    description: "Fitness Option performance training, intelligent coaching and a connected member operating system.",
     type: "website",
-    siteName: "VANTA Athletic Club",
+    siteName: "Fitness Option",
   },
   twitter: {
     card: "summary_large_image",
-    title: "VANTA Athletic Club — Performance Engineered",
-    description: "Performance training, intelligent coaching and a connected member operating system.",
+    title: "Fitness Option — Performance Engineered",
+    description: "Fitness Option performance training, intelligent coaching and a connected member operating system.",
   },
   appleWebApp: {
     capable: true,
-    title: "VANTA",
+    title: "Fitness Option",
     statusBarStyle: "black-translucent",
   },
 };
