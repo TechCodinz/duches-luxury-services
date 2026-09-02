@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./vanta.css";
+import "./premium.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Fitness Option — Performance Engineered" },
@@ -24,6 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function VantaLayout({ children }: { children: React.ReactNode }) {
-  return <div className="vanta-shell">{children}</div>;
+export default function FitnessOptionLayout({ children }: { children: React.ReactNode }) {
+  return <div className="vanta-shell fitness-option-experience">{children}</div>;
 }
